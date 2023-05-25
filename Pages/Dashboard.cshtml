@@ -1,0 +1,318 @@
+﻿@page
+@model FirstWebApp.Pages.NotesModel
+@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif
+        }
+    </style>
+
+    <style>
+        .dropbtn {
+            background-color: white;
+            color: black;
+            border: 2px solid white;
+        }
+
+        .dropbtn:hover, .dropbtn:focus {
+                background-color: white;
+            }
+
+        .dropdown {
+            float: right;
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            right: 0;
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+        .btn {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  padding: 3px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+        .btn2 {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  padding: 7px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Gray */
+.default {
+  border-color: #e7e7e7;
+  color: black;
+}
+  .info:hover {
+  background: #2196F3;
+  color: white;
+}
+
+/* Blue */
+.info {
+  border-color: #2196F3;
+  color: dodgerblue
+}
+
+.info:hover {
+  background: #2196F3;
+  color: white;
+}
+
+.default:hover {
+  background: #e7e7e7;
+}
+    </style>
+</head>
+
+
+<body>
+    
+
+
+    <!-- Header -->
+    <header>
+        <header class="w3-main" style="margin-right:100px">
+            <h3 class="w3-panel w3-left w3-opacity"
+                class="w3-xlarge">
+                <b>Dashboard</b>
+            </h3>
+        </header>
+            
+
+        <p class="w3-panel w3-left w3-opacity" style="padding:5px 0px">Navigate By Using The Tabs Below</p>
+
+        <div class="w3-container">
+
+
+                <input type="text" id="PullSelected" value="--Please Select Across--" readonly>
+
+            &nbsp;<button onclick="RecallData()" class="btn default">Recall</button>
+            <button onclick="PullData()" class="btn default">Live</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           
+            <label>IP Address :</label>
+            <input type="text" id="IP" value="">
+            <!--&nbsp;<button onclick="UpdateIP()">Update</button>-->
+
+
+                <div class="dropdown">
+                    <button onclick="ChamberFunction()" class="dropbtn">Chambers</button>
+                    &nbsp;
+                    <div id="ChamberList" class="dropdown-content">
+                        <select id="ChamberSelect" onchange="UpdateChamber()">
+                            <option>--Please choose an option--</option>
+                            <option value="Chamber1">Chamber 1</option>
+                            <option value="Chamber2">Chamber 2</option>
+                            <option value="Chamber2">Chamber 3</option>
+                        </select>
+                    </div>
+
+                    <div class="dropdown">
+                        <button onclick="SystemFunction()" class="dropbtn">Systems</button>
+                        &nbsp;
+                        <div id="SystemList" class="dropdown-content">
+                            <select id="SystemSelect" onchange="UpdateSystem()">
+                                <option>--Please choose an option--</option>
+                                <option>System 1</option>
+                                <option>System 2</option>
+                                <option>System 3</option>
+                            </select>
+                        </div>
+
+                        <div class="dropdown">
+                            <button onclick="EnvironmentFunction()" class="dropbtn">Environments</button>
+                            &nbsp;
+                            <div id="EnvironmentList" class="dropdown-content">
+                                <select id="EnvironmentSelect" onchange="UpdateEnvironment()">
+                                    <option>--Please choose an option--</option>
+                                    <option>Environment 1</option>
+                                    <option>Environment 2</option>
+                                    <option>Environment 3</option>
+                                </select>
+                            </div>
+    </header>
+
+
+
+    <!-- !PAGE CONTENT! -->
+    <header class="w3-main" style="margin-right:100px">
+        <p class="w3-panel w3-left w3-opacity" style="padding:5px 0px"></p>
+        </header>
+
+        <header class="w3-panel w3-left w3-opacity" style="padding:20px 0px">
+  
+                    <button onclick="LoadMainDAQ()" class="btn2 info" >Romote DAQ</button>
+
+        </header>
+        <p class="w3-panel w3-right w3-opacity" style="padding:30px 0px"><b>Todays Date & Time: &nbsp;</b> @DateTime.Now </p>
+
+
+
+
+        <!-- Header -->
+                
+
+</body>
+<div class="w3-section w3-bottombar w3-padding-10">
+</div>
+        <!--IFrame-->
+        <div>
+    <iframe id="MyIFrame" width="1295" height="750" frameborder="0" scrolling="no" src="https://te360-my.sharepoint.com/personal/willie_grant_te_com/_layouts/15/Doc.aspx?sourcedoc={5c9a4892-abd7-4e91-8c47-221732f64c2a}&action=embedview&wdAllowInteractivity=False&Item=Chart%201&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=false&resen=true&ed1JS=false"></iframe>
+        </div>
+
+        <script>
+
+            function LoadMainDAQ() {
+            var IPnum = document.getElementById('IP').value;
+            document.getElementById('MyIFrame').src = "http://" + IPnum + "/remote.asp";
+            //alert(IPnum);
+            }
+
+            function LoadOverLook() {
+            document.getElementById("MyIFrame").src = "https://te360-my.sharepoint.com/personal/willie_grant_te_com/_layouts/15/Doc.aspx?sourcedoc={5c9a4892-abd7-4e91-8c47-221732f64c2a}&action=embedview&wdAllowInteractivity=False&Item=Chart%201&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=false&resen=true&ed1JS=false";
+           //window.location.reload();
+            }
+
+        </script>
+
+
+
+
+
+
+    <script>
+
+        function reloadIFrame() {
+            document.getElementById("myIframe").src = "http://localhost:30629/LiveCharts";
+        }
+        //setInterval("reloadIFrame();", 5000);
+    </script>
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function ChamberFunction() {
+            document.getElementById("ChamberList").classList.toggle("show");
+        }
+    </script>
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function SystemFunction() {
+            document.getElementById("SystemList").classList.toggle("show");
+        }
+    </script>
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function EnvironmentFunction() {
+            document.getElementById("EnvironmentList").classList.toggle("show");
+        }
+    </script>
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        function UpdateChamber() {
+            var select = document.getElementById('ChamberSelect');
+            var option = select.options[select.selectedIndex];
+            document.getElementById('PullSelected').value = option.text;
+        }
+        update();
+    </script>
+
+    <script type="text/javascript">
+        function UpdateSystem() {
+            var select = document.getElementById('SystemSelect');
+            var option = select.options[select.selectedIndex];
+            document.getElementById('PullSelected').value = option.text;
+        }
+        update();
+    </script>
+
+    <script type="text/javascript">
+        function UpdateEnvironment() {
+            var select = document.getElementById('EnvironmentSelect');
+            var option = select.options[select.selectedIndex];
+            document.getElementById('PullSelected').value = option.text;
+        }
+        update();
+    </script>
+
+
+
+
+
+
+
+
+<!--On Live Button Click -->
+    <script>
+        function PullData() {
+            var currentlink = document.getElementById("PullSelected").value;
+            var newlink;
+
+            if (currentlink === "Chamber 1") {
+            document.getElementById("MyIFrame").src = "https://te360-my.sharepoint.com/personal/willie_grant_te_com/_layouts/15/Doc.aspx?sourcedoc={5c9a4892-abd7-4e91-8c47-221732f64c2a}&action=embedview&Item=Chart%201&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=false&resen=true&ed1JS=false";
+            }
+        if (currentlink === "Chamber 2") {
+            document.getElementById("MyIFrame").src = "https://te360-my.sharepoint.com/personal/willie_grant_te_com/_layouts/15/Doc.aspx?sourcedoc={5c9a4892-abd7-4e91-8c47-221732f64c2a}&action=embedview&Item=Chart%202&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=false&resen=true&ed1JS=false";
+        }
+        }
+    </script>
+
+
+<!--On Recall Button Click -->
+    <script>
+        function RecallData() {
+            var win = window.open();
+        win.document.write('<p>&nbsp;</p><p>&nbsp;</p><center><iframe width="1999" height="1149" src="https://te360-my.sharepoint.com/personal/willie_grant_te_com/_layouts/15/Doc.aspx?sourcedoc={e4665f02-a28f-4e5b-b8fe-4b3d07a20706}&action=embedview&AllowTyping=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=false&resen=true&ed1JS=false" frameborder="0" allowfullscreen></iframe></center>')
+            }
+    </script>
+</html>
